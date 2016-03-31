@@ -49,6 +49,11 @@ void Physical::updatePhysics()
 				//GET CONTACT MANIFOLD FOR OBJECT
 				auto newManifold = ContactManifold(this, itr->second);
 
+				for (int i = 0; i < newManifold.numContacts; ++i)
+				{
+					Game::contacts.push_back(newManifold.contacts[i].position); //TODO: REMOVE
+				}
+
 				bool persistent(false);
 				auto iter = dom->contactManifolds.end();
 

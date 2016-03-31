@@ -16,6 +16,7 @@ public:
 	void setString(std::string pString);
 
 	std::string getString() { return string; }
+	//void setString(char* pString, int pLen);
 
 	void setColour(Colour pColour);
 	
@@ -70,7 +71,8 @@ private:
 			if (*p == '\n')
 			{
 				rgp.x = pos.x;
-				rgp.y -= fontSize;
+				rgp.y -= 20;
+				//minY -= 20;
 				++p;
 			}
 			else

@@ -312,8 +312,6 @@ void Game::gameLoop()
 
 			eventManager.handleEvents();
 
-			//sss2->setPosition(getWorldMousePos());
-
 			while (accumulator >= delTime.getMicroSeconds())
 			{
 				eventManager.handleStateBased();
@@ -348,17 +346,11 @@ void Game::gameLoop()
 
 			if (!getOption(DRAW_INTERPOLATE)) alpha = 0;
 
-			//glLineWidth(2);
+			glLineWidth(2);
 			map->draw(alpha);
 			//ui.draw();
 			debugOverlay.draw();
 			
-			//cameraManager.setCurrCamera(cameraManager.getCamera("DefaultCamera"));
-			//t1.draw();
-			//t2.draw();
-			//t3.draw();
-			//cameraManager.setCurrCamera(cameraManager.getCamera("DefaultCamera"));
-
 			mainWindow.display();
 		}
 		break;

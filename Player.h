@@ -1,6 +1,7 @@
 #pragma once
 #include "Include.h"
 #include "Character.h"
+#include "Ray.h"
 #include "Structures.h"
 #include "Map.h"
 #include "Text.h"

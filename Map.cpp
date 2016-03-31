@@ -164,7 +164,7 @@ void Map::draw(float a)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glDrawArrays(GL_QUADS, 0, 4);
+	//glDrawArrays(GL_QUADS, 0, 4);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 
@@ -206,7 +206,7 @@ void Map::draw(float a)
 		glBegin(GL_LINES);
 
 		//sQuadTree.drawBounds();
-		//dQuadTree.drawBounds();
+		dQuadTree.drawBounds();
 		//eQuadTree.drawBounds();
 		//physicalBodies.drawBounds();
 

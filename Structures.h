@@ -1,6 +1,9 @@
 #pragma once
 #include "Include.h"
+#include "Ray.h"
+#include "Paths.h"
 #include "Polygon.h"
+#include "Spring.h"
 #include "Physical.h"
 
 class Structure : public Physical

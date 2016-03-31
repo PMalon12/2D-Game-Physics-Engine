@@ -1,6 +1,6 @@
 #pragma once
 #include "include.h"
-
+#include "Ray.h"
 #include "Entity.h"
 
 class Character : public Entity
