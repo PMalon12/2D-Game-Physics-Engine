@@ -30,7 +30,7 @@ Mesh::Mesh() : textureScale(1, 1)
 
 	//std::memcpy(&r, c, 4 * sizeof(float));
 
-	r = 0.05; b = 0.05; g = 0.05; a = 1.0;
+	r = 0.0; b = 1.0; g = 0.0; a = 1.0;
 
 	glUniform4f(colourUniform, r, g, b, a);
 
@@ -198,7 +198,7 @@ void TriangleMesh::draw(Transform& model, vec2f texOffset, GLenum S, GLenum T)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
 	auto col = glGetUniformLocation(shader->getID(), "colour");
-	glUniform4f(col, r, g, b, a);
+	glUniform4f(col, 0.f, 0.f, 0.f, a);
 
 	auto modelUniform = glGetUniformLocation(shader->getID(), "model");
 	glUniformMatrix4fv(modelUniform, 1, GL_FALSE, glm::value_ptr(model.getGLTransform()));

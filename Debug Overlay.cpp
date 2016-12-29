@@ -23,7 +23,7 @@ void DebugOverlay::init()
 	fpsP = new Text();
 
 	fps->setFont(Game::fontManager.getFont("consola"));
-	fps->setCharSize(16);
+	fps->setCharSize(255);
 	fps->setColour(Colour(1.0, 1.0, 1.0, 1.0));
 	fps->setPosition(vec2f(10, Game::ScreenSizeY - 500));
 	fps->setScale(vec2f(1.0, 1.0));

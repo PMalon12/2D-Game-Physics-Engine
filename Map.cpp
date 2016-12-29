@@ -254,7 +254,10 @@ Map::Map(vec2f pSize) : sQuadTree(frect(0, 0, pSize.x, pSize.y), 0, 3, 100), dQu
 	placeMode = SS;
 
 	static const auto toggleEdit = [this](void*) -> void { 
-		toggleEditMode(); 
+		if (!Game::getOption(DRAW_DEBUG_OVERLAY))
+		{
+			toggleEditMode();
+		}
 	};
 	Game::cb.addKeyPressCallback(toggleEdit, KeyEventWrap(sf::Keyboard::Dash), this, 0);
 
@@ -859,14 +862,24 @@ void Map::toggleEditMode()
 void Map::updateBackRect()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, backVBO);
+	if (backTexture != NULL)
+	{
+		GLfloat vertices[] = { 0.f, 0.f,								-10.f, 0.f, 0.f,
+			0.f, properties.size.y,					-10.f, 0.f, properties.size.y * backTextureZoom.y / backTexture->getHeight(),
+			properties.size.x, properties.size.y,	-10.f, properties.size.x * backTextureZoom.x / backTexture->getWidth(), properties.size.y * backTextureZoom.y / backTexture->getHeight(),
+			properties.size.x, 0.f,					-10.f, properties.size.x * backTextureZoom.x / backTexture->getWidth(), 0.f };
 
-	GLfloat vertices[] = { 0.f, 0.f,								-10.f, 0.f, 0.f,
-		0.f, properties.size.y,					-10.f, 0.f, properties.size.y * backTextureZoom.y / backTexture->getHeight(),
-		properties.size.x, properties.size.y,	-10.f, properties.size.x * backTextureZoom.x / backTexture->getWidth(), properties.size.y * backTextureZoom.y / backTexture->getHeight(),
-		properties.size.x, 0.f,					-10.f, properties.size.x * backTextureZoom.x / backTexture->getWidth(), 0.f };
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	}
+	else
+	{
+		GLfloat vertices[] = { 0.f, 0.f,								-10.f, 0.f, 0.f,
+			0.f, properties.size.y,					-10.f, 0.f, properties.size.y * backTextureZoom.y / 1,
+			properties.size.x, properties.size.y,	-10.f, properties.size.x * backTextureZoom.x / 1, properties.size.y * backTextureZoom.y / 1,
+			properties.size.x, 0.f,					-10.f, properties.size.x * backTextureZoom.x / 1, 0.f };
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	}
 	shader = Game::shaderManager.getShader("minTex");
 
 	glGenVertexArrays(1, &backVAO);

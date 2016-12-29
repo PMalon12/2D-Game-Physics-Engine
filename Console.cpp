@@ -81,7 +81,7 @@ std::string Console::interpretCommand(std::string cmd)
 		}
 		else if (action == "help" || action == "Help" || action == "HELP")
 		{
-			return "set [id] [val]\nget [id]\nsave [map name]\nload [map name]";
+			return "set [id] [val]\nget [id]\nsave [map name]\nload [map name]\n next [id] [map name]";
 		}
 	}
 	catch (ParamCountMismatchEx ex)

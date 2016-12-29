@@ -299,10 +299,10 @@ void Menu::init()
 	lvlSelBut.clickFunc = lvlSelClick;
 
 
-	static auto lvlONEClick = [this](void) -> void {Game::cameraManager.setCurrCamera(1); Game::map->loadMap("lvlONE"); this->menuState = BackToGame; };
+	static auto lvlONEClick = [this](void) -> void {Game::cameraManager.setCurrCamera(1); Game::map->loadMap("ONE"); this->menuState = BackToGame; };
 	lvlONE.clickFunc = lvlONEClick;
 
-	static auto lvlTWOClick = [this](void) -> void {Game::cameraManager.setCurrCamera(1); Game::map->loadMap("lvlTWO"); this->menuState = BackToGame; };
+	static auto lvlTWOClick = [this](void) -> void {Game::cameraManager.setCurrCamera(1); Game::map->loadMap("TWO"); this->menuState = BackToGame; };
 	lvlTWO.clickFunc = lvlTWOClick;
 
 	static auto playMenuClick = [this](void*) -> void

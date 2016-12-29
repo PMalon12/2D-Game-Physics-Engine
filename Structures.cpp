@@ -15,7 +15,7 @@ void Structure::draw(float alpha)
 	if (Game::getOption(DRAW_CONVEX_HULL))
 	{
 		updateBounds(); //TODO: REMOVE THIS
-		//uid.draw();
+		uid.draw();
 	}
 
 	auto shader = Game::shaderManager.getShader("minTex");
@@ -45,7 +45,7 @@ void DynamicStructure::draw(float a)
 	if (Game::getOption(DRAW_CONVEX_HULL))
 	{
 		updateBounds(); //TODO: REMOVE THIS
-		//uid.draw();
+		uid.draw();
 	}
 }
 

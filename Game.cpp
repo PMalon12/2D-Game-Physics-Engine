@@ -63,11 +63,11 @@ void Game::start(void)
 	Settings.stencilBits = 8;
 	Settings.antialiasingLevel = 16;
 
-	ScreenSizeX = 1280;
-	ScreenSizeY = 720;
+	ScreenSizeX = 1920;
+	ScreenSizeY = 1080;
 
 	//auto vidMode = (*sf::VideoMode::getFullscreenModes().begin());
-	mainWindow.create(sf::VideoMode(ScreenSizeX, ScreenSizeY), "AH Project", sf::Style::Titlebar, Settings);
+	mainWindow.create(sf::VideoMode(ScreenSizeX, ScreenSizeY), "AH Project", sf::Style::Fullscreen, Settings);
 	//mainWindow.create(vidMode, "AH Project", sf::Style::Fullscreen, Settings);
 	//ScreenSizeX = vidMode.width;
 	//ScreenSizeY = vidMode.height;
@@ -140,6 +140,7 @@ void Game::start(void)
 	static const auto setrGran = [](double val) -> void { Game::map->rotateGranularity = val; };
 	static const auto sethp = [](double val) -> void { Game::map->getPlayer()->setHealth(val); };
 	static const auto cc = [](double val) -> void { Game::map->resetCheckpointInfo(); };
+	static const auto dui = [](double val) -> void { Game::drawUI = bool(val); };
 
 	Console::addSetter("pgran", new SetFunc2Var(setpGran));
 	Console::addSetter("sgran", new SetFunc2Var(setsGran));
@@ -158,6 +159,7 @@ void Game::start(void)
 	Console::addSetter("backTex", new SetFunc2Var(Game::setBackTex));
 	Console::addSetter("pow", new SetFunc2Var(Game::setPower));
 	Console::addSetter("gravaf", new SetFunc2Var(Game::setGravAf));
+	Console::addSetter("drawUI", new SetFunc1Var(dui));
 
 	iter = 100;
 
@@ -171,6 +173,9 @@ void Game::start(void)
 
 	menu = new Menu();
 	menu->init();
+
+	setGrav(vec2d(0, 0));
+	setBack(vec3d(0.05, 0.05, 0.05));
 
 	setDT(Time().setMicroSeconds(5000));
 
@@ -219,7 +224,7 @@ void Game::gameLoop()
 			for (int j = 0; j < numForRow; ++j)
 			{
 				xP = xS + (j * radius * 1.5f);
-				balls.push_back(createBall(vec2f(xP, yP), radius, (rng() % 9) + 3));
+				balls.push_back(createBall(vec2f(xP, yP), radius,4 (rng() % 9) + 3));
 				balls.back()->setRotation(PI / 4); balls.back()->setBodyRotation(PI / 4);
 				map->addDynamic(balls.back());
 				balls.back()->setTexture(textureManager.getTexture("d"));
@@ -244,6 +249,8 @@ void Game::gameLoop()
 			xS += (radius * 1.5f) / 2;
 			--numForRow;
 		}*/
+
+		
 
 		/*
 		int num = 100;
@@ -290,6 +297,7 @@ void Game::gameLoop()
 
 			if (mapChanged)
 			{
+				std::cout << "LOADING MAP: " << nextMapName << std::endl;
 				map->loadMap(nextMapName);
 				mapChanged = false;
 			}
@@ -311,6 +319,8 @@ void Game::gameLoop()
 			cameraManager.setCurrCamera(map->currentCamera);
 
 			eventManager.handleEvents();
+
+			//sss2->setPosition(getWorldMousePos());
 
 			while (accumulator >= delTime.getMicroSeconds())
 			{
@@ -348,7 +358,10 @@ void Game::gameLoop()
 
 			glLineWidth(2);
 			map->draw(alpha);
-			//ui.draw();
+			if (drawUI)
+			{
+				ui.draw();
+			}
 			debugOverlay.draw();
 			
 			mainWindow.display();
@@ -397,7 +410,7 @@ void Game::gameLoop()
 				accumulator -= delTime.getMicroSeconds();
 			}
 
-			glClearColor(1, 1, 1, 1);
+			glClearColor(back.r, back.g, back.b, 1);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			Time alpha; alpha.setSeconds(double(accumulator) / double(dt));
@@ -446,6 +459,7 @@ bool Game::mapChanged = false;
 std::string Game::nextMapName;
 float Game::rot = 0;
 bool Game::rotateD = false;
+bool Game::drawUI = true;
 
 int64_t Game::dt = 5000;
 bool Game::doAlpha = true;

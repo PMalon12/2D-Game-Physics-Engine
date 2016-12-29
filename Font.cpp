@@ -60,6 +60,7 @@ void GlyphContainer::load(unsigned char pCharSize, std::string pFontLocation, FT
 
 
 	FT_Set_Pixel_Sizes(pFace, 0, charSize);
+	//FT_Set_Pixel_Sizes(pFace, 0, 500);
 
 	for (char i = 0; i < NO_PRINTABLE_CHARS; ++i)
 	{

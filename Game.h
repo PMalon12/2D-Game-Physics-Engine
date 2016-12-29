@@ -68,6 +68,7 @@ public:
 	static Time delTime;
 
 	static bool doAlpha;
+	static bool drawUI;
 
 	static Colour back;
 

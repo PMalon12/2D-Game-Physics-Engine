@@ -1,6 +1,5 @@
 #pragma once
 #include "Include.h"
-#include "Ray.h"
 #include "Vertex.h"
 #include "Shader.h"
 #include "Transform.h"

@@ -68,7 +68,7 @@ Player::Player()
 	setUID(0xfdcfdcfd);
 
 	jumpCD = 0.00f;
-	doubleJumpCD = 0.2f;
+	doubleJumpCD = 0.05f;
 	glow->r = 0.f; glow->g = 0.f; glow->b = 0.f;
 	mesh->r = 1.f; mesh->g = 1.f; mesh->b = 1.f;
 
@@ -333,7 +333,8 @@ void Player::jump()
 
 void Player::doubleJump()
 {
-	if (!spaceReleasedAfterJump || jumpLock || !hasPower[0]) return;
+	//if (!spaceReleasedAfterJump || jumpLock || !hasPower[0]) return;
+	if (!spaceReleasedAfterJump) return;
 
 	if (jumpTimer > 0 && doubleJumpTimer < 0)
 	{

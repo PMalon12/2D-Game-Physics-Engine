@@ -11,7 +11,6 @@ class GlyphContainer
 {
 public:
 	GlyphContainer();
-
 	~GlyphContainer();
 
 	const GLuint* getGlyphs();
